@@ -14,7 +14,7 @@ class MyTestCase(unittest.TestCase):
         self.driver.maximize_window()
         # service like Mailinator/Mailosaur, or a pre-generated test link) - Selenium
         # cannot read the reset email itself, only drive the browser once it has the link.
-        self.driver.get("https://qah.bishalkarki.com/password-recovery?token=3e5a1629dbb35841326af065038023aa&id_customer=15&reset_token=5721126824501a879d7eac91ccec734f327c9708")
+        self.driver.get("https://qah.bishalkarki.com/password-recovery?token=38f1d703657f5e65e995e0f5dab7b34b&id_customer=10&reset_token=60ad80ed4413a5fdb85175ef5ccca9104371e8ad")
         self.rp = ResetPassword(self.driver)
 
     @data(*ReadCSVData.read_data_from_csv("ResetPasswordData.csv"))
