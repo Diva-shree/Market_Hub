@@ -1,0 +1,853 @@
+{
+  "info": {
+    "_postman_id": "58f2e842-2c6a-4018-bdc1-be0470215997",
+    "name": "Restful Booker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57506189",
+    "_collection_link": "https://go.postman.co/collection/57506189-58f2e842-2c6a-4018-bdc1-be0470215997?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Ping - HealthCheck (TS_01_TC_01)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/ping",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "ping"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Valid Credentials (TS_02_TC_01)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"password123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/auth",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Invalid Credentials (TS_02_TC_02)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\" : \"adminn\",\r\n    \"password\" : \"password222\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/auth",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Empty Request Body(TS_02_TC_03)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/auth",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking - Complete, Valid Payload (TS_03_TC_01)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishow\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":125,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\":\r\n        {\"checkin\":\"2026-01-01\",\r\n        \"checkout\":\"2026-01-05\"},\r\n    \"additionalneeds\":\"Breakfast\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking -  With a required field missing (TS_03_TC_02)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":111,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-01-01\",\r\n        \"checkout\":\"2026-01-05\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking -  With an invalid data type (TS_03_TC_03)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishow\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":\"one hundred\",\r\n    \"depositpaid\":true,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-01-01\",\r\n        \"checkout\":\"2026-01-05\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking -  With an empty payload (TS_03_TC_04)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking -  With a non-boolean depositpaid value (TS_03_TC_05)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishow\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":111,\r\n    \"depositpaid\":\"yes\",\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-01-01\",\r\n        \"checkout\":\"2026-01-05\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Booking -  With an unexpected extra field (TS_03_TC_06)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishow\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":111,\r\n    \"depositpaid\":true,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-01-01\",\r\n        \"checkout\":\"2026-01-05\"\r\n    },\r\n    \"extraField\":\"test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Booking - All ids (TS_04_TC_01)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Booking - Filter by name (TS_04_TC_02)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking?firstname=Bishow&lastname=Maharjan",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking"
+          ],
+          "query": [
+            {
+              "key": "firstname",
+              "value": "Bishow"
+            },
+            {
+              "key": "lastname",
+              "value": "Maharjan"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Booking - By a valid ID (TS_04_TC_03)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "419"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Booking - Using an invalid/non-existent ID (TS_04_TC_04)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "9999"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Booking - With valid token & complete payload (TS_05_TC_01)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token=5a21cf3e3af8186"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"James\",\r\n    \"lastname\":\"Bond\",\r\n    \"totalprice\":234,\r\n    \"depositpaid\":false,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-02-01\",\r\n        \"checkout\":\"2026-02-05\"\r\n    },\r\n    \"additionalneeds\":\"Breakfast\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "419"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Booking - Without a valid auth token (TS_05_TC_02)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "token=899e7aaf37d3722"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"James\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":222,\r\n    \"depositpaid\":false,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-02-01\",\r\n        \"checkout\":\"2026-02-05\"\r\n    },\r\n    \"additionalneeds\":\"Lunch\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "618"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Booking - With non-existent B.id & valid token (TS_05_TC_03)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "token=92ffe4a4c46e0bf"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"James\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":222,\r\n    \"depositpaid\":false,\r\n    \"bookingdates\":\r\n    {\r\n        \"checkin\":\"2026-02-01\",\r\n        \"checkout\":\"2026-02-05\"\r\n    },\r\n    \"additionalneeds\":\"Lunch\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "999999"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Booking - With required fields missing (TS_05_TC_04)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "token=50050afe87ce23d"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"James\",\r\n    \"lastname\":\"Maharjan\",\r\n    \"totalprice\":222,\r\n    \"depositpaid\":false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "3965"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Partial Update - With valid token (TS_06_TC_01)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token=5a21cf3e3af8186"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishal\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "419"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Partial Update - Without valid auth token (TS_06_TC_02)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token="
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishal\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "1823"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Partial Update - With invalid booking ID (TS_06_TC_03)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Cookie",
+            "value": "token=92ffe4a4c46e0bf"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\":\"Bishal\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "999999"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Booking  - With valid token & ID (TS_07_TC_01)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token=5a21cf3e3af8186"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "419"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Booking  - Without valid auth token (TS_07_TC_02)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token="
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "5258"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Booking  - Delete an already deleted ID (TS_07_TC_03)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token=4922cff59bfdf42"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/booking/:id",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "booking",
+            ":id"
+          ],
+          "variable": [
+            {
+              "key": "id",
+              "value": "208"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": ""
+    }
+  ]
+}
