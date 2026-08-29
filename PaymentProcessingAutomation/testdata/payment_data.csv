@@ -1,0 +1,5 @@
+test_case_id,payment_method,terms_accepted,expected_place_order_enabled
+TS_01_TC_02,Cash on Delivery,True,True
+TS_02_TC_01,None,True,False
+TS_02_TC_02,Check,False,False
+TS_03_TC_01,Bank Wire,True,True
