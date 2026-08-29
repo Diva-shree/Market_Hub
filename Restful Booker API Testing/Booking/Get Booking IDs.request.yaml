@@ -1,0 +1,49 @@
+$kind: http-request
+name: Get Booking IDs
+url: https://restful-booker.herokuapp.com/booking
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response is an array\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData).to.be.an(\"array\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Booking list is not empty\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \    pm.expect(jsonData.length).to.be.greaterThan(0);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Each booking has bookingid\", function () {\r
+
+      \    const jsonData = pm.response.json();\r
+
+      \r
+
+      \    jsonData.forEach(function (booking) {\r
+
+      \        pm.expect(booking).to.have.property(\"bookingid\");\r
+
+      \    });\r
+
+      });"
+    language: text/javascript
+order: 3902570030689044
